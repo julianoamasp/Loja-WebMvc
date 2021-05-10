@@ -1,0 +1,91 @@
+﻿@{
+    ViewData["Title"] = "Página de contato";
+    ViewData["tags"] = "Loja, Loja exemplo, loja exemplo C sharp, loja exemplo C#";
+    ViewData["desc"] = "Loja exemplo desenvolvida em C#, este site não efetua nenhum tipo de venda";
+}
+<main class="main">
+    <nav class="breadcrumb-nav">
+        <div class="container">
+            <ul class="breadcrumb">
+                <li><a href="/"><i class="d-icon-home"></i></a></li>
+                <li>Contato</li>
+            </ul>
+        </div>
+    </nav>
+    <div class="page-header" style="background-image: url(images/page-header/contact-us.jpg)">
+        <h1 class="page-title font-weight-bold text-capitalize ls-l">Contato</h1>
+    </div>
+    <div class="page-content mt-10 pt-7">
+        <section class="contact-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-4 col-sm-6 ls-m mb-4">
+                        <div class="grey-section d-flex align-items-center h-100">
+                            <div>
+                                <h4 class="mb-2 text-capitalize">Endereço</h4>
+                                <p>
+                                    @ViewData["endereco"] - @ViewData["bairro"]<br>
+                                    @ViewData["cidade"] / @ViewData["estado"]<br>
+                                </p>
+
+                                <h4 class="mb-2 text-capitalize">Telephone</h4>
+                                <p>
+                                    <a href="tel:#">@ViewData["telefone"]</a><br>
+                                    <a href="tel:#">@ViewData["whatsapp"]</a>
+                                </p>
+
+                                <h4 class="mb-2 text-capitalize">Support</h4>
+                                <p class="mb-4">
+                                    <a href="#">@ViewData["email"]</a><br>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-md-8 col-sm-6 d-flex align-items-center mb-4">
+                        <div class="w-100">
+                            <form class="pl-lg-2" action="#">
+                                <h4 class="ls-m font-weight-bold">Em que posso te ajudar?</h4>
+                                <p>
+                                    Tire suas dúvidas, nos envie sugestão, reclame do que não gostou. Campo com * são obrigatórios!
+                                </p>
+                                <div class="row mb-2">
+                                    <div class="col-12 mb-4">
+                                        <textarea class="form-control" required="" placeholder="Comentario*"></textarea>
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+                                        <input class="form-control" type="text" placeholder="Nome *" required="">
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+                                        <input class="form-control" type="email" placeholder="Email *" required="">
+                                    </div>
+                                </div>
+                                <button class="btn btn-dark btn-rounded">Enviar<i class="d-icon-arrow-right"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End About Section-->
+        <div class="mapouter"><div class="gmap_canvas"><iframe style="
+    width: 100%;
+    height: 100%;
+" id="gmap_canvas" src="https://maps.google.com/maps?q=@ViewData["endereco"],@ViewData["bairro"]&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://putlocker-is.org"></a><br>
+        <style>
+            .mapouter {
+                position: relative;
+                text-align: right;
+                height: 500px;
+                width: 100%;
+            }
+        </style><a href="https://www.embedgooglemap.net">google maps embed wordpress</a>
+        <style>
+            .gmap_canvas {
+                overflow: hidden;
+                background: none !important;
+                height: 500px;
+                width: 100%;
+            }
+        </style></div></div>
+    </div>
+</main>
