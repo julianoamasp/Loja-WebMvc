@@ -23,6 +23,7 @@ namespace Loja.Controllers
         public IActionResult Index(string pagina="")
         {
             DadosEmpresa dadosDaEmpresa = getDadosEmpresa();
+
             
             ViewBag.banners =  getBanners();
             ViewBag.categorias = getCategorias();
