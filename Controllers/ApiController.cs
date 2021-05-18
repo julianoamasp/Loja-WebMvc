@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Loja.Models;
 using Newtonsoft.Json;
+using Loja.DAO;
 
 namespace Loja.Controllers
 {
@@ -17,7 +18,7 @@ namespace Loja.Controllers
             List<Produtos> produtos = new List<Produtos>();
             try
             {
-                MySqlConnection conn = new MySqlConnection("Server=localhost;User ID=root;Password=;Database=loja");
+                MySqlConnection conn = Fabricaconexao.conexao();
 
                 string query = "SELECT * FROM produto,Categorias WHERE CategoriasId = ProdutoIdCategoria;";
                 MySqlCommand comando = new MySqlCommand(query, conn);
@@ -53,7 +54,7 @@ namespace Loja.Controllers
             List<Produtos> produtos = new List<Produtos>();
             try
             {
-                MySqlConnection conn = new MySqlConnection("Server=localhost;User ID=root;Password=;Database=loja");
+                MySqlConnection conn = Fabricaconexao.conexao();
 
                 string query = "SELECT * FROM produto,Categorias WHERE CategoriasId = ProdutoIdCategoria;";
                 MySqlCommand comando = new MySqlCommand(query, conn);

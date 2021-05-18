@@ -1,6 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 
-namespace Loja.dao
+namespace Loja.DAO
 {
     public static class Fabricaconexao
     {

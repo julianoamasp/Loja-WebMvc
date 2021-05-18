@@ -7,7 +7,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Loja.dao;
+using Loja.DAO;
+using MySqlX.XDevAPI;
 
 namespace Loja.Controllers
 {
@@ -22,12 +24,14 @@ namespace Loja.Controllers
 
         public IActionResult Index(string pagina="")
         {
-            DadosEmpresa dadosDaEmpresa = getDadosEmpresa();
+            BannersDAO bannersDao = new BannersDAO();
+            CategoriasDAO categoriasDao = new CategoriasDAO();
+            ProdutosDAO produtosDao = new ProdutosDAO();
 
-            
-            ViewBag.banners =  getBanners();
-            ViewBag.categorias = getCategorias();
-            ViewBag.produtos = getProdutos();
+            DadosEmpresa dadosDaEmpresa = getDadosEmpresa();
+            ViewBag.banners = bannersDao.getBanners();
+            ViewBag.categorias = categoriasDao.getCategorias();
+            ViewBag.produtos = produtosDao.getProdutos();
 
             ViewData["endereco"] = dadosDaEmpresa.DadosEmpresaEndereco1;
             ViewData["bairro"] = dadosDaEmpresa.DadosEmpresaBairro1;
@@ -64,7 +68,7 @@ namespace Loja.Controllers
             DadosEmpresa dadosEmpresa = new DadosEmpresa();
             try
             {
-                MySqlConnection conn = new MySqlConnection("Server=localhost;User ID=root;Password=;Database=loja");
+                MySqlConnection conn = Fabricaconexao.conexao();
 
                 string query = "SELECT* FROM dadosempresa WHERE DadosEmpresaId = 1";
                 MySqlCommand comando = new MySqlCommand(query, conn);
@@ -92,106 +96,6 @@ namespace Loja.Controllers
             }
             catch (Exception ex) { Console.WriteLine(ex.ToString()); }
             return dadosEmpresa;
-        }
-        public List<Banners> getBanners()
-        {
-            List<Banners> banners = new List<Banners>();
-            try
-            {
-                MySqlConnection conn = new MySqlConnection("Server=localhost;User ID=root;Password=;Database=loja");
-
-                string query = "SELECT* FROM `banners`";
-                MySqlCommand comando = new MySqlCommand(query, conn);
-
-                conn.Open();
-
-                MySqlDataReader rd = comando.ExecuteReader();
-
-                while (rd.Read())
-                {
-                    banners.Add(
-                        new Banners(
-                            Convert.ToString(rd["BannersImagem"]),
-                            Convert.ToString(rd["BannersTitulo"]),
-                            Convert.ToString(rd["BannersSubTitulo"]),
-                            Convert.ToString(rd["BannersDescricao"]),
-                            Convert.ToString(rd["BannersLink"])
-                            )
-                        );
-                }
-                conn.Close();
-            }
-            catch (Exception ex) { Console.WriteLine(ex.ToString()); }
-            return banners;
-        }
-        public List<Categorias> getCategorias()
-        {
-            List<Categorias> categorias = new List<Categorias>();
-            try
-            {
-                MySqlConnection conn = new MySqlConnection("Server=localhost;User ID=root;Password=;Database=loja");
-
-                string query = "SELECT * FROM `categorias`;";
-                MySqlCommand comando = new MySqlCommand(query, conn);
-
-                conn.Open();
-
-                MySqlDataReader rd = comando.ExecuteReader();
-
-                while (rd.Read())
-                {
-                    categorias.Add(
-                        new Categorias(
-                            Convert.ToInt32(rd["CategoriasId"]),
-                            Convert.ToString(rd["CategoriasPermalink"]),
-                            Convert.ToString(rd["CategoriasTitulo"]),
-                            Convert.ToString(rd["CategoriasDesc"]),
-                            Convert.ToString(rd["CategoriasTags"]),
-                            Convert.ToString(rd["CategoriasImagem"])
-                            )
-                        );
-                }
-                conn.Close();
-            }
-            catch (Exception ex) { Console.WriteLine(ex.ToString()); }
-            return categorias;
-        }
-
-        public List<Produtos> getProdutos()
-        {
-            List<Produtos> produtos = new List<Produtos>();
-            try
-            {
-                MySqlConnection conn = new MySqlConnection("Server=localhost;User ID=root;Password=;Database=loja");
-
-                string query = "SELECT * FROM produto,Categorias WHERE CategoriasId = ProdutoIdCategoria;";
-                MySqlCommand comando = new MySqlCommand(query, conn);
-
-                conn.Open();
-
-                MySqlDataReader rd = comando.ExecuteReader();
-
-
-                while (rd.Read())
-                {
-                    produtos.Add(
-                        new Produtos(
-                            Convert.ToInt32(rd["ProdutoId"]),
-                            Convert.ToInt32(rd["ProdutoIdCategoria"]),
-                            Convert.ToString(rd["ProdutoPermalink"]),
-                            Convert.ToString(rd["ProdutoTitulo"]),
-                            Convert.ToString(rd["ProdutoDescr"]),
-                            Convert.ToString(rd["ProdutoTags"]),
-                            Convert.ToString(rd["ProdutoThumb"]),
-                            Convert.ToDecimal(rd["ProdutoPreco"]),
-                            Convert.ToInt32(rd["ProdutoDesconto"])
-                            )
-                        );
-                }
-                conn.Close();
-            }
-            catch (Exception ex) { Console.WriteLine(ex.ToString()); }
-            return produtos;
         }
     }
 }
