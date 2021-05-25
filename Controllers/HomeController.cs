@@ -27,8 +27,9 @@ namespace Loja.Controllers
             BannersDAO bannersDao = new BannersDAO();
             CategoriasDAO categoriasDao = new CategoriasDAO();
             ProdutosDAO produtosDao = new ProdutosDAO();
+            DadosEmpresaDAO empresaDAO = new DadosEmpresaDAO();
 
-            DadosEmpresa dadosDaEmpresa = getDadosEmpresa();
+            DadosEmpresa dadosDaEmpresa = empresaDAO.getDadosEmpresa();
             ViewBag.banners = bannersDao.getBanners();
             ViewBag.categorias = categoriasDao.getCategorias();
             ViewBag.produtos = produtosDao.getProdutos();

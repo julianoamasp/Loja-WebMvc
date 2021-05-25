@@ -4,6 +4,30 @@
     ViewData["desc"] = "Loja exemplo desenvolvida em C#, este site não efetua nenhum tipo de venda";
 }
 
+<div class="slider-area">
+    <!-- Slider -->
+    <div class="block-slider block-slider4">
+        <ul class="" id="bxslider-home4">
+
+            @foreach (Banners banner in ViewBag.banners)
+            {
+                <li>
+                    <img src="img/banners/@banner.BannersImagem1" alt="Slide">
+                    <div class="caption-group">
+                        <h2 class="caption title">
+                            @banner.BannersTitulo1 <span class="primary"><strong>@banner.BannersSubTitulo1</strong></span>
+                        </h2>
+                        <h4 class="caption subtitle">@banner.BannersDescricao1</h4>
+                        <a class="caption button-radius" href="@banner.BannersLink1"><span class="icon"></span>Vizualizar</a>
+                    </div>
+                </li>
+            }
+
+            </ul>
+    </div>
+    <!-- ./Slider -->
+</div> <!-- End slider area -->
+<!--
 <main class="main">
     <div class="page-content">
         <section class="intro-section">
@@ -73,7 +97,7 @@
                     }
                     else {
 
-                
+
 
                     <div class="banner banner-fixed appear-animate mb-2" data-animation-options="{
                             'name': 'fadeInLeftShorter',
@@ -83,7 +107,7 @@
         background-attachment: inherit;
         background-image: linear-gradient(45deg, #000000de, #00000054), url(images/demos/demo7/categories/@categoria.imagem);
         background-blend-mode: inherit;">
-     
+
                         <div class="banner-content text-center x-50 y-50 w-100">
                             <h3 class="banner-title text-white ls-m">@categoria.titulo</h3>
                             <p class="font-weight-semi-bold">@categoria.descricao</p>
@@ -163,5 +187,5 @@
 
 
     </div>
-</main>
+</main>-->
 <!-- End of Main -->
