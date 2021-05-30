@@ -23,7 +23,7 @@
                 </li>
             }
 
-            </ul>
+        </ul>
     </div>
     <!-- ./Slider -->
 </div> <!-- End slider area -->
@@ -32,8 +32,49 @@
 
 
 
+<div class="maincontent-area">
+    <div class="zigzag-bottom"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="latest-product">
+                    <h2 class="section-title">Ultimos Produtos</h2>
+                    <div class="product-carousel">
 
 
+                        @foreach (Produtos produto in ViewBag.produtos)
+                        {
+                            <div class="single-product">
+                                <div class="product-f-image">
+                                    <img src="img/produtos/@produto.ProdutoId/@produto.ProdutoThumb" alt="">
+                                    <div class="product-hover">
+                                        <a href="#" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Adicionar</a>
+                                        <a href="single-product.html" class="view-details-link"><i class="fa fa-link"></i> Detalhes</a>
+                                    </div>
+                                </div>
+
+                                <h2><a href="/produto/@produto.ProdutoId/@produto.ProdutoPermalink">@produto.ProdutoTitulo</a></h2>
+
+                                <div class="product-carousel-price">
+                                    @if (produto.ProdutoTitulo != "")
+                                    {
+                                        <ins>
+                                            R$ @(produto.ProdutoPreco - ((produto.ProdutoPreco / 100) * produto.ProdutoDesconto))
+                                        </ins>
+                                    }
+                                        <del>R$ @produto.ProdutoPreco</del>
+
+                                    </div>
+
+</div>
+                        }
+
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- End main content area -->
 <!--
 <main class="main">
     <div class="page-content">
