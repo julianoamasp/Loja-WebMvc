@@ -44,6 +44,9 @@ namespace Loja.Controllers
             ViewData["homeFantasia"] = dadosDaEmpresa.DadosEmpresaNomeFantasia1;
             ViewData["resumo-rodape"] = dadosDaEmpresa.DadosEmpresaResumoQuemSomos1;
 
+            TempData["carrinho"] = "teste";
+
+
             if (pagina == "")
             {
                 return View();
