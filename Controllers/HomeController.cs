@@ -24,6 +24,8 @@ namespace Loja.Controllers
 
         public IActionResult Index(string pagina="")
         {
+   
+
             BannersDAO bannersDao = new BannersDAO();
             CategoriasDAO categoriasDao = new CategoriasDAO();
             ProdutosDAO produtosDao = new ProdutosDAO();
