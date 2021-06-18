@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using Loja.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,18 @@ using MySqlX.XDevAPI;
 
 namespace Loja.Controllers
 {
-    public class HomeController : Controller
+    public class SessaoUsuario{
+        public SessaoUsuario(int ID, string nome, string email)
+        {
+            this.ID = ID;
+            this.nome = nome;
+            this.email = email;
+        }
+           public int ID { get; set; }
+            public string nome { get; set; }
+            public string email { get; set; }
+            }
+public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
 
@@ -22,9 +34,15 @@ namespace Loja.Controllers
             _logger = logger;
         }
 
+ 
+
         public IActionResult Index(string pagina="")
         {
-   
+
+            
+            HttpContext.Session.SetInt32("usuario", 1);
+            HttpContext.Session.SetString("usuario", "Juliano");
+            HttpContext.Session.SetString("usuario", "Juliano@gmail.com");
 
             BannersDAO bannersDao = new BannersDAO();
             CategoriasDAO categoriasDao = new CategoriasDAO();
