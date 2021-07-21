@@ -14,17 +14,7 @@ using MySqlX.XDevAPI;
 
 namespace Loja.Controllers
 {
-    public class SessaoUsuario{
-        public SessaoUsuario(int ID, string nome, string email)
-        {
-            this.ID = ID;
-            this.nome = nome;
-            this.email = email;
-        }
-           public int ID { get; set; }
-            public string nome { get; set; }
-            public string email { get; set; }
-            }
+
 public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -34,47 +24,58 @@ public class HomeController : Controller
             _logger = logger;
         }
 
- 
-
         public IActionResult Index(string pagina="")
         {
-
-            
-            HttpContext.Session.SetInt32("usuario", 1);
-            HttpContext.Session.SetString("usuario", "Juliano");
-            HttpContext.Session.SetString("usuario", "Juliano@gmail.com");
-
-            BannersDAO bannersDao = new BannersDAO();
-            CategoriasDAO categoriasDao = new CategoriasDAO();
-            ProdutosDAO produtosDao = new ProdutosDAO();
-            DadosEmpresaDAO empresaDAO = new DadosEmpresaDAO();
-
-            DadosEmpresa dadosDaEmpresa = empresaDAO.getDadosEmpresa();
-            ViewBag.banners = bannersDao.getBanners();
-            ViewBag.categorias = categoriasDao.getCategorias();
-            ViewBag.produtos = produtosDao.getProdutos();
-
-            ViewData["endereco"] = dadosDaEmpresa.DadosEmpresaEndereco1;
-            ViewData["bairro"] = dadosDaEmpresa.DadosEmpresaBairro1;
-            ViewData["cidade"] = dadosDaEmpresa.DadosEmpresaCidade1;
-            ViewData["estado"] = dadosDaEmpresa.DadosEmpresaEstado1;
-            ViewData["email"] = dadosDaEmpresa.DadosEmpresaEmail1;
-            ViewData["telefone"] = dadosDaEmpresa.DadosEmpresaTelefone1;
-            ViewData["whatsapp"] = dadosDaEmpresa.DadosEmpresaWhatsapp1;
-            ViewData["homeFantasia"] = dadosDaEmpresa.DadosEmpresaNomeFantasia1;
-            ViewData["resumo-rodape"] = dadosDaEmpresa.DadosEmpresaResumoQuemSomos1;
-
-            TempData["carrinho"] = "teste";
+            string paginaSet = "";
+            if (pagina != "favicon.ico" && pagina != "") {
+                paginaSet = pagina;
+            }
 
 
-            if (pagina == "")
+
+
+                BannersDAO bannersDao = new BannersDAO();
+                CategoriasDAO categoriasDao = new CategoriasDAO();
+                ProdutosDAO produtosDao = new ProdutosDAO();
+                DadosEmpresaDAO empresaDAO = new DadosEmpresaDAO();
+
+                DadosEmpresa dadosDaEmpresa = empresaDAO.getDadosEmpresa();
+                ViewBag.banners = bannersDao.getBanners();
+                ViewBag.categorias = categoriasDao.getCategorias();
+                ViewBag.produtos = produtosDao.getProdutos();
+
+                ViewData["endereco"] = dadosDaEmpresa.DadosEmpresaEndereco1;
+                ViewData["bairro"] = dadosDaEmpresa.DadosEmpresaBairro1;
+                ViewData["cidade"] = dadosDaEmpresa.DadosEmpresaCidade1;
+                ViewData["estado"] = dadosDaEmpresa.DadosEmpresaEstado1;
+                ViewData["email"] = dadosDaEmpresa.DadosEmpresaEmail1;
+                ViewData["telefone"] = dadosDaEmpresa.DadosEmpresaTelefone1;
+                ViewData["whatsapp"] = dadosDaEmpresa.DadosEmpresaWhatsapp1;
+                ViewData["homeFantasia"] = dadosDaEmpresa.DadosEmpresaNomeFantasia1;
+                ViewData["resumo-rodape"] = dadosDaEmpresa.DadosEmpresaResumoQuemSomos1;
+
+
+ 
+
+            if (paginaSet == "")
             {
                 return View();
             }
             else
             {
-                return View(pagina);
+                PaginaDAO paginaDAO = new PaginaDAO();
+                List<Pagina> paginasDao = paginaDAO.getPaginaPermalink(paginaSet);
+                if (paginasDao.Count > 0)
+                {
+                    return View(paginaSet);
+                }
+                else
+                {
+                    Response.Redirect("/");
+                    return View();
+                }
             }
+            
         }
 
         public IActionResult Contato()
